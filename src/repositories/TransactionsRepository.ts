@@ -32,12 +32,42 @@ class TransactionsRepository {
     return this.transactions;
   }
 
-  public getBalance(): Balance {
-    // TODO
+ public getBalance(): Balance {
+    const { income, outcome } = this.transactions.reduce((
+      groupTransaction: Balance,
+      transaction: Transaction ) => {
+
+        switch (transaction.type) {
+          case 'income':
+            groupTransaction.income += transaction.value;
+            break;
+          case 'outcome':
+            groupTransaction.outcome += transaction.value;
+            break;
+          default:
+            break;
+        }
+
+      return groupTransaction;
+    }, {
+      income: 0,
+      outcome: 0,
+      total: 0,
+    }
+  );
+
+    const total = income - outcome;
+
+    return { income, outcome, total };
   }
 
   public create({ title, value, type }: CreateTransactionDTO ) : Transaction {
-    const transaction = new Transaction({ title, value, type });
+    const transaction = new Transaction({
+      title,
+      value,
+      type
+    });
+
     this.transactions.push(transaction);
     return transaction;
   }
