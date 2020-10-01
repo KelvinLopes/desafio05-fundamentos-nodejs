@@ -20,15 +20,6 @@ class TransactionsRepository {
   }
 
   public all(): Transaction[] {
-
-    const findAllTransactions = this.transactions.map(transaction => ({
-      ...transaction
-    }),
-   );
-
-      if(findAllTransactions) {
-        throw Error( 'No transacitions found' );
-      }
     return this.transactions;
   }
 
