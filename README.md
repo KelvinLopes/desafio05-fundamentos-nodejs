@@ -33,4 +33,4 @@ yarn dev
 
 ### Rodar os testes no projeto
 
-yarn test
+```yarn test```
